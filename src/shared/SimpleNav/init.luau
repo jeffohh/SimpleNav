@@ -76,6 +76,7 @@ function SimpleNav:Run(goal: Vector3 | PVInstance)
     elseif (goal:IsA("PVInstance")) then
         self.goalPos = goal:GetPivot().Position
     else
+        self.goalPos = nil
         return
     end
 
@@ -85,15 +86,23 @@ function SimpleNav:Run(goal: Vector3 | PVInstance)
     end)
 
     if success and self.path.Status == Enum.PathStatus.Success then
-        local waypoints = iter(self.path:GetWaypoints())
-    
-        for pos in waypoints() do
-            local reached = false
-            repeat
-                self.humanoid:MoveTo(pos)
-                reached = self.humanoid.MoveToFinished:Wait()
-            until reached
-        end
+        -- create movement task
+        self.janitor:Add(task.defer(function()
+            local waypoints = iter(self.path:GetWaypoints())
+
+            for pos in waypoints() do
+                local reached = false
+                repeat
+                    -- instead of MoveTo, we should use Move and add steering behavior
+                    self.humanoid:MoveTo(pos)
+                    reached = self.humanoid.MoveToFinished:Wait()
+                until reached
+            end
+        end), true)
+
+        self.janitor:Add(self.path.Blocked:Connect(function()
+            self:Run(self.goalPos :: Vector3)
+        end), "Disconnect")
     else
         print(`Path unable to be computed, error: {errorMessage}`)
     end
