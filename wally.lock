@@ -3,6 +3,11 @@
 registry = "test"
 
 [[package]]
+name = "data-oriented-house/lemonsignal"
+version = "1.11.0"
+dependencies = []
+
+[[package]]
 name = "evaera/promise"
 version = "4.0.0"
 dependencies = []
@@ -20,4 +25,4 @@ dependencies = [["Promise", "evaera/promise@4.0.0"]]
 [[package]]
 name = "jeffrey/simplenav"
 version = "0.1.0"
-dependencies = [["janitor", "howmanysmall/janitor@1.18.3"]]
+dependencies = [["janitor", "howmanysmall/janitor@1.18.3"], ["lemonsignal", "data-oriented-house/lemonsignal@1.11.0"]]
