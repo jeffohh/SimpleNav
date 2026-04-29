@@ -6,6 +6,9 @@ local Packages = ReplicatedStorage:WaitForChild("Packages")
 local Janitor = require(Packages:WaitForChild("janitor"))
 local LemonSignal = require(Packages:WaitForChild("lemonsignal"))
 
+local ApplyHumanoid = require(script:WaitForChild("ApplyHumanoid"))
+local SteeringBehaviors = require(script:WaitForChild("SteeringBehaviors"))
+
 --[[ Header ]]--
 type Impl = {
     __index: Impl,
@@ -119,6 +122,7 @@ function module.new(model: Model & {Humanoid: Humanoid})
     self.Reached = LemonSignal.new()
 
     CollectionService:AddTag(model, AGENT_TAG)
+    ApplyHumanoid(self.humanoid)
 
     return self
 end
