@@ -78,6 +78,7 @@ local function computeSeparation(model: Model, pathDir: Vector3): Vector3
         local diff       = myPos - otherPos
         local distance   = diff.Magnitude
 
+        -- check if other NPC is nearby
         if distance > 0 and distance < SEPARATION_RADIUS then
             local rawRepulsion = diff / distance
 
@@ -146,6 +147,7 @@ function SimpleNav:Run(goal: Vector3 | PVInstance)
 
     if success and self.path.Status == Enum.PathStatus.Success then
 
+        -- debug waypoints
         for waypoint in iter(self.path:GetWaypoints()) do
             local part = Instance.new("Part")
             part.Position = waypoint.Position
