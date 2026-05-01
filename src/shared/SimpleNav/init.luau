@@ -105,17 +105,17 @@ local function computeSeparation(model: Model, pathDir: Vector3): Vector3
 end
 
 --[[ Object ]]--
-function module.new(model: Model & {Humanoid: Humanoid})
+function module.new(model: Model & {Humanoid: Humanoid}, path: Path?)
     local self = setmetatable({} :: Proto, SimpleNav)
 
     self.janitor = Janitor.new()
 
     self.model = model
     self.humanoid = model.Humanoid
-    self.path = PathfindingService:CreatePath({
+    self.path = path or PathfindingService:CreatePath({
         AgentRadius = 5,
         AgentHeight = 6,
-        AgentCanJump = false
+        AgentCanJump = true
     })
 
     self.goalPos = nil
