@@ -1,12 +1,12 @@
 [package]
-name = "jeffrey/simplenav"
+name = "jeffohh/simplenav"
 description = "A simple pathfinding wrapper with steering behaviors."
 license = "MIT"
 authors = ["PhantomVisual"]
 version = "0.1.0"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
-exclude = ["rokit.toml"]
+exclude = ["rokit.toml", "default.project.json"]
 
 [dependencies]
 janitor = "howmanysmall/janitor@1.18.3"
